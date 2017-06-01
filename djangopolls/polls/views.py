@@ -1,18 +1,20 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader
 
 from polls.models import Question
 
 
 # Create your views here.
 def index(request):
+    """
+    :param request: 질문을 모두 보고싶은 경우 
+    :return: 모든 질문 리스트
+    """
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    template = loader.get_template('polls/index.html')
     context = {
         'latest_question_list': latest_question_list,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'polls/index.html', context)
 
 
 def detail(request, question_id):
