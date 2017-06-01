@@ -18,7 +18,13 @@ def index(request):
 
 
 def detail(request, question_id):
-    return HttpResponse("You're looking at question {}".format(question_id))
+    """
+        :param request: 각 질문의 상세페이지
+        :param question_id: 질문의 pk번호
+        :return: pk번호에 해당하는 질문의 투표페이지 
+        """
+    question = Question.objects.get(pk=question_id)
+    return render(request, 'polls/detail.html', {'question': question})
 
 
 def results(request, question_id):
